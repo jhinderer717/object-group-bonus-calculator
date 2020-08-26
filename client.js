@@ -72,53 +72,58 @@ employeeNumber.length>4 then they get the bonus
 
 NOTE: You may abstract out this bonus calculation into a second function if you like, but this is not mandatory.
 */
+let newEmployees = [];
 
 function bonusCalculation(employees) {
+    newEmployees = [];
     for (let i = 0; i < employees.length; i++) {
         console.log(employees[i]);
         calculateBonusPercentage(employees[i]);
 
     }
+
+    function calculateBonusPercentage(object) {
+        const maxBonusPercent = .13;
+        const minBonusPercent = 0;
+        let bonusPercent = 0;
+
+        if (object.employeeNumber < 10000) {
+            bonusPercent = 0.05;
+            //console.log(bonusPercent);
+        }
+        if (object.annualSalary > 65000) {
+            bonusPercent -= .01;
+            //console.log();
+        }
+
+        if (object.reviewRating < 3) {
+            console.log(object.name + ' no bonus ');
+        } else if (object.reviewRating === 3) {
+            bonusPercent += .04;
+            console.log(bonusPercent);
+            console.log(object.name + ' 4% bonus ');
+        } else if (object.reviewRating === 4) {
+            bonusPercent += .06;
+            console.log(bonusPercent);
+            console.log(object.name + ' 6% bonus ');
+        } else if (object.reviewRating === 5) {
+            bonusPercent += .10;
+            console.log(bonusPercent);
+            console.log(object.name + ' 10% bonus ');
+        }
+        if (bonusPercent > maxBonusPercent) {
+            bonusPercent = 0.13;
+        } else if (bonusPercent < minBonusPercent) {
+            bonusPercent = 0;
+        }
+
+        let totalBonus = (Number(object.annualSalary) * bonusPercent);
+        console.log('Bonus amount : $', totalBonus);
+        let totalCompensation = (Number(object.annualSalary) + totalBonus);
+        console.log('New salary amount : $', totalCompensation);
+        newEmployees.push({ name: object.name, bonusPercentage: bonusPercent, totalBonus: totalBonus, totalCompensation: totalCompensation });
+        console.log(newEmployees);
+    }
 };
 
 bonusCalculation(employees);
-
-function calculateBonusPercentage(object) {
-    const maxBonusPercent = .13;
-    const minBonusPercent = 0;
-    let bonusPercent = 0;
-    if (object.employeeNumber < 10000) {
-        bonusPercent = 0.05;
-        //console.log(bonusPercent);
-    }
-    if (object.annualSalary > 65000) {
-        bonusPercent -= .01;
-        //console.log();
-    }
-
-    if (object.reviewRating < 3) {
-        console.log(object.name + ' no bonus ');
-    } else if (object.reviewRating === 3) {
-        bonusPercent += .04;
-        console.log(bonusPercent);
-        console.log(object.name + ' 4% bonus ');
-    } else if (object.reviewRating === 4) {
-        bonusPercent += .06;
-        console.log(bonusPercent);
-        console.log(object.name + ' 6% bonus ');
-    } else if (object.reviewRating === 5) {
-        bonusPercent += .10;
-        console.log(bonusPercent);
-        console.log(object.name + ' 10% bonus ');
-    }
-    if (bonusPercent > maxBonusPercent) {
-        bonusPercent = 0.13;
-    } else if (bonusPercent < minBonusPercent) {
-        bonusPercent = 0;
-    }
-
-    let totalBonus = (Number(object.annualSalary) * bonusPercent);
-    console.log('Bonus amount : $', totalBonus);
-    let totalCompensation = (Number(object.annualSalary) + totalBonus);
-    console.log('New salary amount : $', totalCompensation);
-}
