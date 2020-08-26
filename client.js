@@ -26,7 +26,7 @@ const employees = [{
 {
     name: "Mayella",
     employeeNumber: "89068",
-    annualSalary: "95000",
+    annualSalary: "35000",
     reviewRating: 1,
 },
 ];
@@ -77,21 +77,11 @@ function bonusCalculation(employees) {
     for (let i = 0; i < employees.length; i++) {
         console.log(employees[i]);
         calculateBonusPercentage(employees[i]);
+
     }
 };
 
 bonusCalculation(employees);
-//console.log(employees[i]);
-//}
-/*
-bonusCalculation({
-    name: "Mayella",
-    employeeNumber: "89068",
-    annualSalary: "35000",
-    reviewRating: 1,
-});
-*/
-
 
 function calculateBonusPercentage(object) {
     const maxBonusPercent = .13;
@@ -99,13 +89,12 @@ function calculateBonusPercentage(object) {
     let bonusPercent = 0;
     if (object.employeeNumber < 10000) {
         bonusPercent = 0.05;
-        console.log(bonusPercent);
+        //console.log(bonusPercent);
     }
     if (object.annualSalary > 65000) {
         bonusPercent -= .01;
         //console.log();
     }
-
 
     if (object.reviewRating < 3) {
         console.log(object.name + ' no bonus ');
@@ -127,4 +116,9 @@ function calculateBonusPercentage(object) {
     } else if (bonusPercent < minBonusPercent) {
         bonusPercent = 0;
     }
+
+    let totalBonus = (Number(object.annualSalary) * bonusPercent);
+    console.log('Bonus amount : $', totalBonus);
+    let totalCompensation = (Number(object.annualSalary) + totalBonus);
+    console.log('New salary amount : $', totalCompensation);
 }
